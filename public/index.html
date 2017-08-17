@@ -1,0 +1,119 @@
+<html lang="en">
+
+	<head>
+		<meta name="viewport"
+		      content="width=device-width, initial-scale=1">
+		<!-- Angular Material style sheet -->
+		<link rel="stylesheet"
+		      href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+		      rel="stylesheet">
+		<link rel="stylesheet"
+		      href="css/md-data-table.min.css">
+		<link rel="stylesheet"
+		      href="css/main.css">
+		<link rel="stylesheet"
+		      href="css/elevation.css">
+		<meta name="mobile-web-app-capable"
+		      content="yes">
+		<meta name="apple-mobile-web-app-capable"
+		      content="yes">
+
+		<title>Trip Planner</title>
+	</head>
+
+	<body ng-app="trip-planner">
+
+		<md-content ng-controller="PlannerController as planner">
+			<md-toolbar></md-toolbar>
+			<md-card>
+				<md-card-title>
+					<md-card-title-text>
+						<span class="md-headline">Planejamento de Viagem v0.0.2</span>
+						<span class="md-subhead">
+							Entre com informações para o planejamento da sua viagem
+						</span>
+					</md-card-title-text>
+				</md-card-title>
+				<md-card-content>
+					<form>
+						<md-input-container>
+							<label>Destino</label>
+							<input ng-model="planner.viagem.destino">
+						</md-input-container>
+						<md-input-container>
+							<md-datepicker ng-model="planner.viagem.dataInicio"
+							               md-placeholder="Inicio da planner.viagem"
+							               ng-max="planner.viagem.dataFim"
+							               aria-label="teste"
+							               ng-change="planner.changeDate()">
+							</md-datepicker>
+						</md-input-container>
+						<md-input-container>
+							<md-datepicker ng-model="planner.viagem.dataFim"
+							               md-placeholder="Fim da planner.viagem"
+							               ng-min="planner.viagem.dataInicio"
+							               aria-label="teste"
+							               ng-change="planner.changeDate()">
+							</md-datepicker>
+						</md-input-container>
+						<br>
+						<md-input-container>
+							<label>Valor Hotel</label>
+							<input ng-model="planner.viagem.valorHotel"
+							       type="number"
+							       ng-change="planner.calculaTotal()">
+						</md-input-container>
+						<md-input-container>
+							<label>Valor da Passagem</label>
+							<input ng-model="planner.viagem.valorPassagem"
+							       type="number"
+							       ng-change="planner.calculaTotal()">
+						</md-input-container>
+						<br>
+						<h1>Despesa total: {{planner.viagem.total | currency}}</h1>
+						<md-button ng-click="planner.salvarViagem()">Salvar</md-button>
+					</form>
+				</md-card-content>
+			</md-card>
+			<md-card>
+				<md-card-content>
+					<div class="trip-day e4"
+					     ng-repeat="dia in planner.viagem.dias"
+					     ng-click="planner.clickDia($event, dia)">
+						<p>{{dia.data|date:'dd/MM EEE'}}</p>
+						<p>{{dia.total | currency}}</p>
+					</div>
+				</md-card-content>
+			</md-card>
+		</md-content>
+
+		<script src="/__/firebase/4.2.0/firebase-app.js"></script>
+		<!-- include only the Firebase features as you need -->
+		<script src="/__/firebase/4.2.0/firebase-auth.js"></script>
+		<script src="/__/firebase/4.2.0/firebase-messaging.js"></script>
+		<script src="/__/firebase/4.2.0/firebase-storage.js"></script>
+		<script src="/__/firebase/4.2.0/firebase-database.js"></script>
+		<!-- initialize the SDK after all desired features are loaded -->
+		<script src="/__/firebase/init.js"></script>
+
+		<!-- Angular Material requires Angular.js Libraries -->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+		<!-- Angular Material Library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+		<script src="js/angular-locale_pt-br.js"></script>
+		<script src="js/md-data-table.min.js"></script>
+		<!-- AngularFire -->
+		<script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.js"></script>
+
+		<!-- Scripts locais -->
+		<script src="js/main.js"></script>
+		<script src="js/DespesasController.js"></script>
+
+	</body>
+
+</html>

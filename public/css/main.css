@@ -1,0 +1,18 @@
+.trip-day{
+    display: inline-block;
+    background-color: rgba(63, 81, 181, 0.15);
+    border-radius: 5px;
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    padding: 10px;
+    cursor: pointer;
+    -webkit-transition: all .3s ease-out;
+    -moz-transition: all .3s ease-out;
+    transition: all .3s ease-out;
+}
+
+.trip-day:hover{
+    transform: scale(1.2);
+    box-shadow: 0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)
+}
