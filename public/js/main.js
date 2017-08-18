@@ -31,41 +31,10 @@ angular.module('trip-planner', ['ngMaterial', 'md.data.table', 'firebase']);
     function PlannerController($mdDialog, $firebaseObject, $scope) {
         var planner = this;
         var ref = firebase.database().ref().child("viagem");
-        var fireObj = $firebaseObject(ref);
-
-        fireObj.$loaded().then(function () {
-            planner.viagem = fireObj;
-            planner.viagem.destino = planner.viagem.destino || 'Nova York';
-            planner.viagem.total = planner.viagem.total || 0;
-            planner.viagem.dias = planner.viagem.dias || [];
-
-            //planner.viagem.dataInicioISO = planner.viagem.dataInicioISO || new Date('2017-01-01').toISOString();
-            //planner.viagem.dataFimISO = planner.viagem.dataFimISO || new Date('2017-01-10').toISOString();
-
-            planner.viagem.dataInicio = new Date(planner.viagem.dataInicioISO || '2017-01-01');
-            planner.viagem.dataFim = new Date(planner.viagem.dataFimISO || '2017-01-10');
-
-            fireObj.$$save = function () {
-                for (var key in fireObj) {
-                    if (fireObj[key] instanceof Date) {
-                        fireObj[key + 'ISO'] = fireObj[key].toISOString();
-                    }
-                }
-
-                return fireObj.$save().then(function () {
-                    for (var key in fireObj) {
-                        if (key.indexOf('ISO') !== -1) {
-                            fireObj[key.replace('ISO', '')] = new Date(fireObj[key]);
-                        }
-                    }
-                });
-            };
-
-            planner.changeDate();
-        });
+        planner.viagem = $firebaseObject(ref);
 
         planner.salvarViagem = function () {
-            return planner.viagem.$$save();
+            return planner.viagem.$save();
         };
 
         planner.changeDate = function () {
@@ -73,12 +42,16 @@ angular.module('trip-planner', ['ngMaterial', 'md.data.table', 'firebase']);
                 return;
             }
 
+            if (!planner.viagem.dataFim || !planner.viagem.dataInicio) {
+                return;
+            }
+
             if (planner.viagem.dias && planner.viagem.dias.length) {
                 var inicioViagem = planner.viagem.dataInicio.toISOString().substring(0, 10);
                 var fimViagem = planner.viagem.dataFim.toISOString().substring(0, 10);
 
-                var dataPrimeiroDia = planner.viagem.dias[0].data.substring(0, 10);
-                var dataUltimoDia = planner.viagem.dias[planner.viagem.dias.length - 1].data.substring(0, 10);
+                var dataPrimeiroDia = planner.viagem.dias[0].data.toISOString().substring(0, 10);
+                var dataUltimoDia = planner.viagem.dias[planner.viagem.dias.length - 1].data.toISOString().substring(0, 10);
 
                 if (dataPrimeiroDia === inicioViagem &&
                     dataUltimoDia === fimViagem) {
@@ -95,7 +68,7 @@ angular.module('trip-planner', ['ngMaterial', 'md.data.table', 'firebase']);
             while (data < dataFimLocal) {
                 planner.viagem.dias.push({
                     dia: data.getDate(),
-                    data: angular.copy(data.toISOString()),
+                    data: angular.copy(data),
                     total: 0,
                     lista: []
                 });
