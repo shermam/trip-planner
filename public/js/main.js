@@ -19,7 +19,7 @@
 // });
 
 
-angular.module('trip-planner', ['ngMaterial', 'md.data.table', 'firebase']);
+angular.module('trip-planner', ['ngMaterial', 'firebase']);
 
 (function () {
     'use strict';
@@ -110,7 +110,7 @@ angular.module('trip-planner', ['ngMaterial', 'md.data.table', 'firebase']);
             planner.viagem.total += planner.viagem.valorHotel || 0;
             planner.viagem.total += planner.viagem.valorPassagem || 0;
             planner.viagem.dias.forEach(function (dia) {
-                planner.viagem.total += dia.total;
+                planner.viagem.total += dia.total || 0;
             });
         };
 

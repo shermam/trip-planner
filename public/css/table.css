@@ -1,0 +1,148 @@
+*{
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html, body{
+	background: #EEEEEE;
+}
+
+.card{
+	margin: 40px;
+	border-radius: 3px;
+	background: #fff;
+	box-shadow: 0.1px 0.1px 5px 0px rgba(0,0,0,0.5);
+	overflow: hidden;
+}
+
+table.killer-grid{
+	width: 100%;
+	font-family: Roboto, sans-serif;
+	text-align: left;
+	font-weight: normal;
+	border: none;
+	border-collapse: collapse;
+}
+
+table.killer-grid tbody{
+	font-size: 13px;
+	color: rgba(0,0,0,0.87);
+}
+
+table.killer-grid thead{
+	font-size: 12px;
+	color: rgba(0,0,0,0.54);
+}
+
+table.killer-grid th{
+	font-weight: normal;
+	text-align: left;
+}
+
+table.killer-grid tbody tr:hover{
+	background: #EEEEEE;
+}
+
+table.killer-grid th:hover{
+	color: rgba(0,0,0,0.87);
+}
+
+table.killer-grid tr{
+	border-bottom: 1px solid #e5e5e5;
+}
+
+table.killer-grid tbody tr{
+	height: 48px;
+}
+
+table.killer-grid thead tr{
+	height: 56px;
+}
+
+/*overflow não funciona*/
+table.killer-grid tr th,
+table.killer-grid tr td{
+	padding: 0 56px 0 0;
+	overflow: hidden;
+	overflow-wrap: none;
+}
+
+table.killer-grid tr th:first-child,
+table.killer-grid tr td:first-child{
+	padding: 0;
+	width: 66px;
+}
+
+
+table.killer-grid input[type='checkbox']{
+	position: fixed;
+	opacity: 0;
+}
+
+table.killer-grid input[type='checkbox']+label{
+	width: 18px;
+	height: 18px;
+	display: flex;
+	border: 2px solid rgba(0,0,0,0.54);
+	border-radius: 3px;
+	float: left;
+	margin: 0 24px;
+	color: #fff;
+	font-size: 15px;
+	text-align: center;
+	align-items: center;
+	justify-content: center;
+}
+
+table.killer-grid input[type='checkbox']+label::after{
+	box-sizing: border-box;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    left: 4.66667px;
+    top: .22222px;
+    display: table;
+    width: 6.66667px;
+    height: 13.33333px;
+    border-width: 2px;
+    border-style: solid;
+    border-top: 0;
+    border-left: 0;
+    content: ".";
+    border-color: transparent;
+    color: red;
+}
+
+table.killer-grid input[type='checkbox']:checked+label::after{
+	border-color: #fff;
+	color: red;
+}
+
+table.killer-grid tbody tr:hover input[type='checkbox']+label{
+	color: #EEEEEE;
+}
+
+table.killer-grid input[type='checkbox']:checked+label{
+	background: #4285f4;
+	border: 2px solid #4285f4;
+	padding-bottom: 3px;
+}
+
+.killer-grid-header{
+	height: 64px;
+	padding-left: 24px;
+	display: flex;
+	align-items: center;
+}
+
+.killer-grid-header	h1{
+	font-family: Arial, sans-serif;
+	font-size: 20px;
+	color: rgba(0,0,0,0.87);
+	font-weight: normal;
+}
+
+/*Must select the parent row and aply the background*/
+table.killer-grid input[type='checkbox']:checked @tr{
+	background: #F5F5F5;
+}

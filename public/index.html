@@ -8,8 +8,10 @@
 		      href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 		      rel="stylesheet">
+		<!-- <link rel="stylesheet"
+			href="css/md-data-table.min.css"> -->
 		<link rel="stylesheet"
-		      href="css/md-data-table.min.css">
+		      href="css/table.css">
 		<link rel="stylesheet"
 		      href="css/main.css">
 		<link rel="stylesheet"
@@ -45,7 +47,7 @@
 							<md-datepicker ng-model="planner.viagem.dataInicio"
 							               md-placeholder="Inicio da planner.viagem"
 							               ng-max="planner.viagem.dataFim"
-							               aria-label="teste"
+							               aria-label="Data de Início da Viagem"
 							               ng-change="planner.changeDate()">
 							</md-datepicker>
 						</md-input-container>
@@ -53,7 +55,7 @@
 							<md-datepicker ng-model="planner.viagem.dataFim"
 							               md-placeholder="Fim da planner.viagem"
 							               ng-min="planner.viagem.dataInicio"
-							               aria-label="teste"
+							               aria-label="Data de Término da Viagem"
 							               ng-change="planner.changeDate()">
 							</md-datepicker>
 						</md-input-container>
@@ -104,9 +106,9 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
 
 		<!-- Angular Material Library -->
-		<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.4/angular-material.min.js"></script>
 		<script src="js/angular-locale_pt-br.js"></script>
-		<script src="js/md-data-table.min.js"></script>
+		<!-- <script src="js/md-data-table.min.js"></script> -->
 		<!-- AngularFire -->
 		<script src="js/angularfire.js"></script>
 		<!-- <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.js"></script> -->

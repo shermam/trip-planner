@@ -35,59 +35,31 @@
         <md-dialog-content ng-show="despesa.showLista">
             <div class="md-dialog-content">
 
-                <!-- <md-toolbar class="md-table-toolbar md-default">
-                    <div class="md-toolbar-tools">
-                        <span>Nutrition</span>
-                    </div>
-                </md-toolbar> -->
-
-                <!-- exact table from live demo -->
-                <md-table-container>
-                    <table md-table
-                           md-row-select
-                           multiple
-                           ng-model="selected"
-                           md-progress="promise">
-                        <thead md-head
-                               md-order="query.order"
-                               md-on-reorder="getDesserts">
-                            <tr md-row>
-                                <th md-column
-                                    md-order-by="nameToLower"><span>Atividade</span></th>
-                                <th md-column
-                                    md-numeric
-                                    md-order-by="calories.value"><span>Valor</span></th>
-                                <th md-column>Endereço</th>
-                            </tr>
-                        </thead>
-                        <tbody md-body>
-                            <tr md-row
-                                md-select="atividade"
-                                md-select-id="name"
-                                md-auto-select
-                                ng-repeat="atividade in despesa.dia.lista">
-                                <td md-cell>{{atividade.name}}</td>
-                                <td md-cell>{{atividade.price}}</td>
-                                <td md-cell>{{atividade.address}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </md-table-container>
-
-                <!-- <md-table-pagination md-limit="query.limit"
-                                     md-limit-options="[5, 10, 15]"
-                                     md-page="query.page"
-                                     md-total="{{despesa.lista.length}}"
-                                     md-on-paginate="getDesserts"
-                                     md-page-select></md-table-pagination> -->
-
+                <table class="killer-grid">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Atividade</th>
+                            <th>Valor</th>
+                            <th>Endereço</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="atividade in despesa.dia.lista"
+                            ng-click="despesa.editar(atividade)">
+                            <td></td>
+                            <td>{{atividade.name}}</td>
+                            <td>{{atividade.price}}</td>
+                            <td>{{atividade.address}}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </md-dialog-content>
 
         <md-dialog-actions layout="row">
             <md-button md-autofocus
-                       ng-click="despesa.ok()"
-                       ng-show="despesa.showLista">
+                       ng-click="despesa.ok()">
                 Salvar
             </md-button>
             <md-button md-autofocus
@@ -95,8 +67,13 @@
                        ng-hide="despesa.showLista">
                 Voltar
             </md-button>
-            <md-button ng-click="despesa.add()">
+            <md-button ng-click="despesa.add()"
+                       ng-show="despesa.showLista">
                 Adicionar
+            </md-button>
+            <md-button ng-click="despesa.excluir()"
+                       ng-hide="despesa.hideExcluir()">
+                Exluir
             </md-button>
             <span flex></span>
         </md-dialog-actions>
