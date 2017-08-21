@@ -22,8 +22,18 @@
                 </md-input-container>
                 <md-input-container>
                     <label>Valor</label>
-                    <input ng-model="despesa.selected.price"
+                    <input ng-model="despesa.selected.price.ammount"
                            type="number">
+                </md-input-container>
+                <md-input-container>
+                    <label>Moeda</label>
+                    <md-select ng-model="despesa.selected.price.moeda">
+                        <!-- <md-option><em>None</em></md-option> -->
+                        <md-option ng-repeat="moeda in despesa.MoneyService.moedas"
+                                   ng-value="moeda">
+                            {{moeda}}
+                        </md-option>
+                    </md-select>
                 </md-input-container>
                 <md-input-container>
                     <label>Endereço</label>
@@ -41,6 +51,7 @@
                             <th></th>
                             <th>Atividade</th>
                             <th>Valor</th>
+                            <th>Moeda</th>
                             <th>Endereço</th>
                         </tr>
                     </thead>
@@ -49,7 +60,8 @@
                             ng-click="despesa.editar(atividade)">
                             <td></td>
                             <td>{{atividade.name}}</td>
-                            <td>{{atividade.price}}</td>
+                            <td>{{atividade.price.ammount}}</td>
+                            <td>{{atividade.price.moeda}}</td>
                             <td>{{atividade.address}}</td>
                         </tr>
                     </tbody>

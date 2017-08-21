@@ -3,14 +3,15 @@
 
     angular.module('trip-planner').controller('DespesasController', DespesasController);
 
-    DespesasController.inject = ['$mdDialog', '$mdBottomSheet'];
+    DespesasController.inject = ['$mdDialog', '$mdBottomSheet', 'MoneyService'];
 
-    function DespesasController($mdDialog, $mdBottomSheet) {
+    function DespesasController($mdDialog, $mdBottomSheet, MoneyService) {
 
         var despesa = this;
 
         despesa.selected = null;
         despesa.showLista = true;
+        despesa.MoneyService = MoneyService;
 
         despesa.cancel = function () {
             $mdDialog.cancel();
@@ -24,10 +25,18 @@
                 if (despesa.dia.lista.indexOf(despesa.selected) === -1) {
                     despesa.dia.lista.push(despesa.selected);
                 }
-                despesa.dia.total += despesa.selected.price || 0;
+                // despesa.dia.total += MoneyService.convertToReal(despesa.selected.price);
+                despesa.calculaTotalDespesas();
                 despesa.selected = null;
                 despesa.showLista = true;
             }
+        };
+
+        despesa.calculaTotalDespesas = function () {
+            despesa.dia.total = 0;
+            despesa.dia.lista.forEach(function (item) {
+                despesa.dia.total += MoneyService.convertToReal(item.price);
+            });
         };
 
         despesa.voltar = function () {
@@ -35,12 +44,14 @@
         };
 
         despesa.excluir = function () {
+            // despesa.dia.total -= MoneyService.convertToReal(despesa.selected.price);
             despesa.dia.lista.splice(despesa.dia.lista.indexOf(despesa.selected), 1);
+            despesa.calculaTotalDespesas();
             despesa.showLista = true;
         };
 
         despesa.hideExcluir = function () {
-            return despesa.showLista || despesa.dia.lista.indexOf(despesa.selected) === -1;
+            return despesa.showLista || !despesa.dia.lista || despesa.dia.lista.indexOf(despesa.selected) === -1;
         };
 
         despesa.editar = function (atividade) {
@@ -49,7 +60,7 @@
         };
 
         despesa.add = function () {
-            despesa.selected = {};
+            despesa.selected = { price: {} };
             despesa.showLista = false;
         };
 

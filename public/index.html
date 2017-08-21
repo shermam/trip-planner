@@ -31,7 +31,7 @@
 			<md-card>
 				<md-card-title>
 					<md-card-title-text>
-						<span class="md-headline">Planejamento de Viagem v0.0.3</span>
+						<span class="md-headline">Planejamento de Viagem v0.0.9</span>
 						<span class="md-subhead">
 							Entre com informações para o planejamento da sua viagem
 						</span>
@@ -62,19 +62,43 @@
 						<br>
 						<md-input-container>
 							<label>Valor Hotel</label>
-							<input ng-model="planner.viagem.valorHotel"
+							<input ng-model="planner.viagem.valorHotel.ammount"
 							       type="number"
 							       ng-change="planner.calculaTotal()">
 						</md-input-container>
 						<md-input-container>
+							<label>Moeda</label>
+							<md-select ng-model="planner.viagem.valorHotel.moeda"
+							           ng-change="planner.calculaTotal()">
+								<md-option ng-repeat="moeda in planner.MoneyService.moedas"
+								           ng-value="moeda">
+									{{moeda}}
+								</md-option>
+							</md-select>
+						</md-input-container>
+						<br>
+						<md-input-container>
 							<label>Valor da Passagem</label>
-							<input ng-model="planner.viagem.valorPassagem"
+							<input ng-model="planner.viagem.valorPassagem.ammount"
 							       type="number"
 							       ng-change="planner.calculaTotal()">
 						</md-input-container>
+						<md-input-container>
+							<label>Moeda</label>
+							<md-select ng-model="planner.viagem.valorPassagem.moeda"
+							           ng-change="planner.calculaTotal()">
+								<!-- <md-option><em>None</em></md-option> -->
+								<md-option ng-repeat="moeda in planner.MoneyService.moedas"
+								           ng-value="moeda">
+									{{moeda}}
+								</md-option>
+							</md-select>
+						</md-input-container>
 						<br>
 						<h1>Despesa total: {{planner.viagem.total | currency}}</h1>
-						<md-button ng-click="planner.salvarViagem()">Salvar</md-button>
+						<md-button ng-click="planner.salvarViagem()"
+						           ng-bind="planner.saveMessage"
+						           aria-label="Salvar"></md-button>
 					</form>
 				</md-card-content>
 			</md-card>
@@ -116,6 +140,7 @@
 		<!-- Scripts locais -->
 		<script src="js/main.js"></script>
 		<script src="js/DespesasController.js"></script>
+		<script src="js/MoneyService.js"></script>
 
 	</body>
 

@@ -26,15 +26,21 @@ angular.module('trip-planner', ['ngMaterial', 'firebase']);
 
     angular.module('trip-planner').controller('PlannerController', PlannerController);
 
-    PlannerController.inject = ['$mdDialog', '$firebaseObject', '$scope'];
+    PlannerController.inject = ['$mdDialog', '$firebaseObject', '$scope', 'MoneyService'];
 
-    function PlannerController($mdDialog, $firebaseObject, $scope) {
+    function PlannerController($mdDialog, $firebaseObject, $scope, MoneyService) {
         var planner = this;
         var ref = firebase.database().ref().child("viagem");
         planner.viagem = $firebaseObject(ref);
+        planner.MoneyService = MoneyService;
+        planner.saveMessage = "Salvar";
 
         planner.salvarViagem = function () {
-            return planner.viagem.$save();
+            planner.saveMessage = "Salvando...";
+            return planner.viagem.$save()
+                .then(function () {
+                    planner.saveMessage = "Salvar";
+                });
         };
 
         planner.changeDate = function () {
@@ -107,8 +113,8 @@ angular.module('trip-planner', ['ngMaterial', 'firebase']);
             }
 
             planner.viagem.total = 0;
-            planner.viagem.total += planner.viagem.valorHotel || 0;
-            planner.viagem.total += planner.viagem.valorPassagem || 0;
+            planner.viagem.total += MoneyService.convertToReal(planner.viagem.valorHotel);
+            planner.viagem.total += MoneyService.convertToReal(planner.viagem.valorPassagem);
             planner.viagem.dias.forEach(function (dia) {
                 planner.viagem.total += dia.total || 0;
             });
